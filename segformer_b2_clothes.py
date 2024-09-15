@@ -8,12 +8,14 @@ from PIL import Image,ImageOps, ImageFilter
 import torch.nn as nn
 import torch
 
+from huggingface_hub import snapshot_download,hf_hub_download
 # comfy_path = os.path.dirname(folder_paths.__file__)
 # custom_nodes_path = os.path.join(comfy_path, "custom_nodes")
 
 
 # 指定本地分割模型文件夹的路径
 model_folder_path = os.path.join(folder_paths.models_dir,"segformer_b2_clothes")
+snapshot_download(repo_id="mattmdjaga/segformer_b2_clothes", local_dir=model_folder_path)
 
 processor = SegformerImageProcessor.from_pretrained(model_folder_path)
 model = AutoModelForSemanticSegmentation.from_pretrained(model_folder_path)
